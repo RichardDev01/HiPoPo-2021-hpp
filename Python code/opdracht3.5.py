@@ -86,7 +86,6 @@ class WorkerThreadRework(threading.Thread):
         """
         return self.n2 * self.deltaX
 
-
 def main():
     """
     Gets a number of terms from the user, then sums
@@ -96,7 +95,7 @@ def main():
 
     # get the number of terms
     # N = int(input("> "))
-    N = 3
+    N = 10000
 
     sum = 0.0  # where we sum up the individual
     # intervals
@@ -120,6 +119,8 @@ def main():
     workersRework.start()
 
     # ------------------------------------------------------------
+
+
     start = timer()
     # sum over N terms
     for i in range(N):
