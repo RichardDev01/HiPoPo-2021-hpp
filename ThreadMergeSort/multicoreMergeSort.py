@@ -6,6 +6,8 @@ import concurrent.futures
 #Studentnummer
 np.random.seed(1762581)
 
+import sys
+sys.setrecursionlimit(30000)
 
 
 def merge_sort(xs: List[int]):
@@ -75,19 +77,39 @@ def create_lists_of_two(mainlist):
         index += 1
     return set_lists
 
+
+def process_join_sort(pre_results):
+    values = list(pre_results)
+    # print(values)
+
+    if len(values) >= 2:
+        combined_List = create_lists_of_two(values)
+
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            results = executor.map(split_list_array_merge, combined_List)
+        return process_join_sort(results)
+    else:
+        return values
+
+
 if __name__ == '__main__':
-    randomlist100 = list(np.random.randint(low=0, high=100, size=64))
+    randomlist100 = list(np.random.randint(low=0, high=100, size=2000))
     unsorted_list = [0, 11, 8, 15, 16, 2, 21, 25]
 
-    n_cores = 8
+    n_cores = 4
+
     chunks = chunk_slicer(randomlist100, n_cores)
     start = time.perf_counter()
     with concurrent.futures.ProcessPoolExecutor() as executor:
         results = executor.map(merge_sort, chunks)
 
+    process_join_sort(results)
+    # print(list(process_join_sort(results)), 'end')
     finish = time.perf_counter()
 
     print(f'Finished in {round(finish - start, 10)} second(s) and used {n_cores=}\n')
+
+'''
 
     values = list(results)
     print(values)
@@ -138,3 +160,4 @@ if __name__ == '__main__':
     #
     #
     # print(f'Finished in {round(finish-start, 10)} second(s) Single core')
+'''
