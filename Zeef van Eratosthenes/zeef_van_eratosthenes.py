@@ -49,7 +49,7 @@ def zeef_new_hope(n_size):
     while (k * k < n_size):
         if (dynamic_array_bool[k] == True):
             # updating all the multiples
-            for i in range(k * 2, n_size + 1, k):
+            for i in range(k ** 2, n_size + 1, k):
                 dynamic_array_bool[i] = False
         k += 1
     return np.count_nonzero(dynamic_array_bool)
@@ -57,7 +57,7 @@ def zeef_new_hope(n_size):
 
 
 if __name__ == "__main__":
-    n = 1000000
+    n = 1000000000
     # start_zeef = time.time()
     # primes_zeef = zeef(n)
     # end_zeef = time.time()
