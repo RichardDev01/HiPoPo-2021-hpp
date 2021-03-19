@@ -10,6 +10,11 @@ Aangezien 1 geen priem is, zetten we k op 2.
 """
 
 def zeef(n_size):
+    """
+    2e poging voor het maken van de zeef met booleans ipv getallen
+    :param n_size: grote van de lijst, range van 0 tot n word dan aangemaakt
+    :return: het aantal prime getalen aanwezig in lijst van 0 tot n
+    """
     n = n_size
     dynamic_array = [x for x in range(2, n)]
     # dynamic_array_bool = [True for _ in range(2, n)]
@@ -23,10 +28,16 @@ def zeef(n_size):
                 # dynamic_array.remove(sta_num)
                 dynamic_array_bool.append(False)
     # print(dynamic_array_bool)
-    return dynamic_array_bool
-    # return dynamic_array
+    return np.count_nonzero(dynamic_array_bool)
+
+
 
 def zeef_old(n_size):
+    """
+    eerste poging voor het maken van de zeef die alle prime getalen returned
+    :param n_size: grote van de lijst, range van 0 tot n word dan aangemaakt
+    :return: een lijst met alle prime getalen aanwezig in lijst van 0 tot n
+    """
     n = n_size
     dynamic_array = [x for x in range(2, n)]
     for number in range(2, n):
@@ -38,7 +49,13 @@ def zeef_old(n_size):
 
     return dynamic_array
 
-def zeef_new_hope(n_size):
+
+def zeef_vectorized(n_size):
+    """
+    vectorized soluction voor het zeef probleem
+    :param n_size: grote van de lijst, range van 0 tot n word dan aangemaakt
+    :return: het aantal prime getalen aanwezig in lijst van 0 tot n
+    """
     dynamic_array_bool = [True for _ in range(n_size+1)]
     # dynamic_array_bool = np.full(n_size +1, True, dtype=bool) \\ dit is langzamer :C
     k = 2
@@ -57,7 +74,7 @@ def zeef_new_hope(n_size):
 
 
 if __name__ == "__main__":
-    n = 1000000000
+    n = 100000000
     # start_zeef = time.time()
     # primes_zeef = zeef(n)
     # end_zeef = time.time()
@@ -73,7 +90,7 @@ if __name__ == "__main__":
     # # print(primes)
 
     start = time.time()
-    primes = zeef_new_hope(n)
+    primes = zeef_vectorized(n)
     end = time.time()
     elapse_time = end - start
     print(f"zeef_new_hope {primes=}, time = {elapse_time}")
