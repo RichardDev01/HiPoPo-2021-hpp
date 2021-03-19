@@ -74,7 +74,7 @@ def zeef_vectorized(n_size):
 
 
 if __name__ == "__main__":
-    n = 100000000
+    n = 100000
     # start_zeef = time.time()
     # primes_zeef = zeef(n)
     # end_zeef = time.time()
